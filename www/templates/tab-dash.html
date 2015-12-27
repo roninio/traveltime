@@ -1,21 +1,5 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <div class="list card">
-      <div class="item item-divider">Recent Updates</div>
-      <div class="item item-body hide">
-        <div>
-          There is a fire in <b>sector 3</b>
-        </div>
-      </div>
-    </div>
-    <div class="list card"> 
-      <div class="item item-divider">Current Location</div>
-      <div class="item item-body">
-        <div>
-              
-        </div>
-      </div>
-    </div>
     <div class="list card" ng-controller="DestinationController as vm">
       <div class="item item-divider">Destination</div>
       <div class="item item-body">
@@ -23,22 +7,22 @@
               Enter an address: <br/>
                 <input places-auto-complete size=80
                   ng-model="vm.address"
-                  component-restrictions=""
+                  component-restrictions="{country:'il'}"
                   types="['address']"
                   on-place-changed="vm.placeChanged()" /> <br/>
                 <div ng-show="vm.place">
                   Address = {{vm.place.formatted_address}} <br/>
                   Location: {{vm.place.geometry.location}}<br/>
                 </div>
-              address : {{vm.address}}
-              <map>
+             
+              <ng-map center="current-location">
                   <marker position="current" centered="true"></marker>
-                        <marker position="{{vm.address}}" title="{{address}}"></marker>
+                        <marker position="{{vm.place.formatted_address}}" title="{{vm.place.formatted_address}}"></marker>
  <directions 
           draggable="true"
           travel-mode="DRIVING"
           origin="current-location"
-          destination="{{vm.address}}">
+          destination="{{vm.place.formatted_address}}">
         </directions>
               </ng-map>
         </div>
